@@ -1,4 +1,4 @@
-﻿// Author: Julian Janicki 2022
+// Author: Julian Janicki 2022
 
 #include <iostream>
 
@@ -97,7 +97,7 @@ class PriorityQ
 				}
 			}
 
-			if (a.size() < b.size())
+			if (a.size() <= b.size())
 			{
 				return 1;
 			}
@@ -110,6 +110,7 @@ class PriorityQ
 			b = b.substr(0, 10);
 			int yearA = atoi(a.substr(6).c_str());
 			int yearB = atoi(b.substr(6).c_str());
+
 			if (yearA < yearB)
 			{
 				return 1;
@@ -181,10 +182,17 @@ class PriorityQ
 			min = leftSon(index);
 		}
 
-		if (rightSon(index) < vec.getSize() && cmp(r, vec[rightSon(index)], vec[min]))
+		if (leftSon(index) < vec.getSize() && rightSon(index) < vec.getSize())
 		{
-			min = rightSon(index);
+			if (vec[leftSon(index)] != vec[rightSon(index)])
+			{
+				if (cmp(r, vec[rightSon(index)], vec[min]))
+				{
+					min = rightSon(index);
+				}
+			}
 		}
+		
 
 		if (min != index)
 		{
@@ -202,8 +210,12 @@ public:
 	void R()
 	{
 		r = !r;
-		heapDown(0);
+		for (int i = vec.getSize() - 1; i >= 0; i--)
+		{
+			heapDown(i);
+		}
 	}
+
 	void add(string val)
 	{
 		vec.add(val);
