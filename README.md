@@ -1,3 +1,3 @@
-My code solutions for tasks from programming competitions.
+My code solutions.
 
-My studies project.
+GUT Studies and POI
