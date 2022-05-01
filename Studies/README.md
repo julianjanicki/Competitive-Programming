@@ -1,5 +1,7 @@
-transportCompany - Solution for: [transportCompany.pdf](https://github.com/julianjanicki/Competitive-Programming/files/6585315/Projekt.1.pdf)
+transportCompany - Solution for: [transportCompany.pdf](https://github.com/julianjanicki/Programming/files/8599355/transportCompany.pdf)
 
-messageFilter - Solution for: [messageFilter.pdf](https://github.com/julianjanicki/Competitive-Programming/files/6585316/Projekt.2.pdf)
 
-heapString - Solution for: priority queue using min heap for given structures: "dd-mm-rrrr Name"
+messageFilter - Solution for: [messageFilter.pdf](https://github.com/julianjanicki/Programming/files/8599354/messageFilter.pdf)
+
+
+heapString - Solution for: [heapString.pdf](https://github.com/julianjanicki/Programming/files/8599349/heapString.pdf)
