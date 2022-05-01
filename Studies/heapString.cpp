@@ -1,12 +1,12 @@
 // Author: Julian Janicki 2022
 
 #include <iostream>
+#include <string>
 
 using std::swap;
 using std::string;
 using std::cout;
 using std::cin;
-using std::noskipws;
 
 class Vector
 {
@@ -72,7 +72,7 @@ class PriorityQ
 	Vector vec;
 	bool r;
 
-	bool cmp(bool r, string a, string b)
+	bool cmp(string a, string b)
 	{
 		if (r == true)
 		{
@@ -97,7 +97,7 @@ class PriorityQ
 				}
 			}
 
-			if (a.size() <= b.size())
+			if (a.size() < b.size())
 			{
 				return 1;
 			}
@@ -133,7 +133,7 @@ class PriorityQ
 
 			int dayA = atoi(a.substr(0, 2).c_str());
 			int dayB = atoi(b.substr(0, 2).c_str());
-			if (dayA <= dayB)
+			if (dayA < dayB)
 			{
 				return 1;
 			}
@@ -165,34 +165,27 @@ class PriorityQ
 		{
 			return;
 		}
-		
-		if (cmp(r, vec[index], vec[parent(index)]))
+
+		if (cmp(vec[index], vec[parent(index)]))
 		{
 			swap(vec[index], vec[parent(index)]);
 			heapUp(parent(index));
 		}
 	}
-	
+
 	void heapDown(int index)
 	{
 		int min = index;
 
-		if (leftSon(index) < vec.getSize() && cmp(r, vec[leftSon(index)], vec[min]))
+		if (leftSon(index) < vec.getSize() && cmp(vec[leftSon(index)], vec[min]))
 		{
 			min = leftSon(index);
 		}
-
-		if (leftSon(index) < vec.getSize() && rightSon(index) < vec.getSize())
-		{
-			if (vec[leftSon(index)] != vec[rightSon(index)])
-			{
-				if (cmp(r, vec[rightSon(index)], vec[min]))
-				{
-					min = rightSon(index);
-				}
-			}
-		}
 		
+		if (rightSon(index) < vec.getSize() && cmp(vec[rightSon(index)], vec[min]))
+		{
+			min = rightSon(index);
+		}
 
 		if (min != index)
 		{
@@ -224,34 +217,34 @@ public:
 
 	void remove()
 	{
-		cout << vec[0] << '\n';
-		swap(vec[0], vec[vec.getSize() - 1]);
+		cout << vec[0] << "\n\n";
+		vec[0] = vec[vec.getSize() - 1];
 		vec.remove();
 		heapDown(0);
 	}
-	
+
 	void print()
 	{
 		for (int i = 0; i < vec.getSize(); i++)
 		{
 			cout << vec[i] << '\n';
 		}
+		cout << '\n';
 	}
 };
 
 int main()
 {
 	PriorityQ queue;
-	string in;
+	char in;
 	cin >> in;
-
-	while (in != "q")
+	while (in != 'q')
 	{
-		if (in == "+")
+		if (in == '+')
 		{
 			int num;
 			cin >> num;
-			
+
 			while (num--)
 			{
 				string date, name, all;
@@ -260,7 +253,7 @@ int main()
 				queue.add(all);
 			}
 		}
-		else if (in == "-")
+		else if (in == '-')
 		{
 			int num;
 			cin >> num;
@@ -270,15 +263,15 @@ int main()
 				queue.remove();
 			}
 		}
-		else if (in == "p")
+		else if (in == 'p')
 		{
 			queue.print();
 		}
-		else if (in == "r")
+		else if (in == 'r')
 		{
 			queue.R();
 		}
-
+		
 		cin >> in;
 	}
 
