@@ -5,3 +5,6 @@ messageFilter - Solution for: [messageFilter.pdf](https://github.com/julianjanic
 
 
 heapString - Solution for: [heapString.pdf](https://github.com/julianjanicki/Programming/files/8599349/heapString.pdf)
+
+
+nmkSolver - Solution for: [nmkSolver.pdf](https://github.com/julianjanicki/Programming/files/8606714/nmkSolver.pdf)
