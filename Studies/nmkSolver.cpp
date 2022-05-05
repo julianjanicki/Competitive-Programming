@@ -1,10 +1,8 @@
 // Author: Julian Janicki 2022
 #include <iostream>
-#include <string>
 
 using std::cin;
 using std::cout;
-using std::string;
 
 // wypisz plansze
 void print(char** board, int n, int m) {
@@ -25,7 +23,7 @@ bool winColumn(char** board, int n, int m, int k, char player) {
 	for (int i = 0; i < n; i++) {
 		if (board[i][m] == player) {
 			sum++;
-		} 
+		}
 		else {
 			sum = 0;
 		}
@@ -136,10 +134,15 @@ void generate(int n, int m, int k, char player) {
 			}
 		}
 	}
-	
+
 	for (int i = 0; i < n; i++) {
 		if (winRow(board, i, m, k, (player == '1') ? '2' : '1')) {
 			cout << 0 << '\n';
+
+			for (i = 0; i < n; i++) {
+				delete[] board[i];
+			}
+			delete[] board;
 
 			return;
 		}
@@ -148,6 +151,11 @@ void generate(int n, int m, int k, char player) {
 	for (int j = 0; j < m; j++) {
 		if (winColumn(board, n, j, k, (player == '1') ? '2' : '1')) {
 			cout << 0 << '\n';
+
+			for (int i = 0; i < n; i++) {
+				delete[] board[i];
+			}
+			delete[] board;
 
 			return;
 		}
@@ -159,6 +167,11 @@ void generate(int n, int m, int k, char player) {
 				if (winDiag(board, n, m, k, (player == '1') ? '2' : '1', i, j)) {
 					cout << 0 << '\n';
 
+					for (i = 0; i < n; i++) {
+						delete[] board[i];
+					}
+					delete[] board;
+
 					return;
 				}
 			}
@@ -167,7 +180,12 @@ void generate(int n, int m, int k, char player) {
 
 	if (isDraw(board, n, m)) {
 		cout << 0 << '\n';
-		
+
+		for (int i = 0; i < n; i++) {
+			delete[] board[i];
+		}
+		delete[] board;
+
 		return;
 	}
 
@@ -191,7 +209,7 @@ void generate(int n, int m, int k, char player) {
 // generuj wszystkie mozliwe ruchy lub w przypadku napotkania konca gry wypisz tylko ten scenariusz
 void generateToEnd(int n, int m, int k, char player) {
 	int sum = 0;
-	
+
 	char** board = new char* [n];
 	for (int i = 0; i < n; i++) {
 		board[i] = new char[m];
@@ -208,6 +226,11 @@ void generateToEnd(int n, int m, int k, char player) {
 		if (winRow(board, i, m, k, (player == '1') ? '2' : '1')) {
 			cout << 0 << '\n';
 
+			for (i = 0; i < n; i++) {
+				delete[] board[i];
+			}
+			delete[] board;
+
 			return;
 		}
 	}
@@ -215,6 +238,11 @@ void generateToEnd(int n, int m, int k, char player) {
 	for (int j = 0; j < m; j++) {
 		if (winColumn(board, n, j, k, (player == '1') ? '2' : '1')) {
 			cout << 0 << '\n';
+
+			for (int i = 0; i < n; i++) {
+				delete[] board[i];
+			}
+			delete[] board;
 
 			return;
 		}
@@ -226,6 +254,11 @@ void generateToEnd(int n, int m, int k, char player) {
 				if (winDiag(board, n, m, k, (player == '1') ? '2' : '1', i, j)) {
 					cout << 0 << '\n';
 
+					for (i = 0; i < n; i++) {
+						delete[] board[i];
+					}
+					delete[] board;
+
 					return;
 				}
 			}
@@ -234,6 +267,11 @@ void generateToEnd(int n, int m, int k, char player) {
 
 	if (isDraw(board, n, m)) {
 		cout << 0 << '\n';
+
+		for (int i = 0; i < n; i++) {
+			delete[] board[i];
+		}
+		delete[] board;
 
 		return;
 	}
@@ -247,11 +285,21 @@ void generateToEnd(int n, int m, int k, char player) {
 					cout << 1 << '\n';
 					print(board, n, m);
 
+					for (i = 0; i < n; i++) {
+						delete[] board[i];
+					}
+					delete[] board;
+
 					return;
 				}
 				else if (winColumn(board, n, j, k, player) == true) {
 					cout << 1 << '\n';
 					print(board, n, m);
+
+					for (i = 0; i < n; i++) {
+						delete[] board[i];
+					}
+					delete[] board;
 
 					return;
 				}
@@ -259,12 +307,22 @@ void generateToEnd(int n, int m, int k, char player) {
 					cout << 1 << '\n';
 					print(board, n, m);
 
+					for (i = 0; i < n; i++) {
+						delete[] board[i];
+					}
+					delete[] board;
+
 					return;
 				}
 
 				if (isDraw(board, n, m)) {
 					cout << 1 << '\n';
 					print(board, n, m);
+
+					for (i = 0; i < n; i++) {
+						delete[] board[i];
+					}
+					delete[] board;
 
 					return;
 				}
@@ -282,7 +340,7 @@ void generateToEnd(int n, int m, int k, char player) {
 				board[i][j] = player;
 
 				print(board, n, m);
-				
+
 				board[i][j] = '0';
 			}
 		}
@@ -425,7 +483,7 @@ int solve(char** board, int n, int m, int k, char player, bool isMaximazing, int
 					if (score < beta) {
 						beta = score;
 					}
-					
+
 					board[i][j] = '0';
 
 					if (alpha >= beta) {
@@ -441,16 +499,16 @@ int solve(char** board, int n, int m, int k, char player, bool isMaximazing, int
 
 // wczytyawanie komend oraz wywolywanie powzyszych funkcji
 int main() {
-	string cmd;
+	char cmd[100];
 	while (cin >> cmd) {
 		int n, m, k;
 		char player;
 		cin >> n >> m >> k >> player;
 
-		if (cmd == "GEN_ALL_POS_MOV") {
+		if (strlen(cmd) == 15) {
 			generate(n, m, k, player);
 		}
-		else if (cmd == "GEN_ALL_POS_MOV_CUT_IF_GAME_OVER") {
+		else if (strlen(cmd) == 32) {
 			generateToEnd(n, m, k, player);
 		}
 		else {
@@ -480,7 +538,6 @@ int main() {
 			delete[] board;
 		}
 	}
-
 
 	return 0;
 }
